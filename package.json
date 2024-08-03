@@ -1,0 +1,34 @@
+{
+  "name": "geolocator-helper",
+  "version": "1.0.0",
+  "type": "module",
+  "description": " Lightweight geolocation library which provides latitude, longitude, and address  . Seamless integration with BigDataCloud API.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build":"npx rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amul69906995/geolocator-helper.git"
+  },
+  "keywords": [
+    "geolocation",
+    "latitude",
+    "longitude",
+    "reverse",
+    "geocoding",
+    "location",
+    "adress"
+  ],
+  "author": "amul kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amul69906995/geolocator-helper/issues"
+  },
+  "homepage": "https://github.com/amul69906995/geolocator-helper#readme",
+  "devDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rollup": "^4.20.0"
+  }
+}
