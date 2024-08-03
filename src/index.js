@@ -1,7 +1,5 @@
 const convertToAddress = async (lat, lng,apiKey) => {
     try{
-    lat = lat.trim();
-    lng = lng.trim();
     const url = `https://api.olamaps.io/places/v1/reverse-geocode?latlng=${lat},${lng}&api_key=${apiKey}`;
     const response = await fetch(url);
     const data = await response.json();

@@ -2,7 +2,7 @@
   "name": "geolocator-helper",
   "version": "1.0.0",
   "type": "module",
-  "description": " Lightweight geolocation library which provides latitude, longitude, and address  . Seamless integration with BigDataCloud API.",
+  "description": " Lightweight geolocation library which provides latitude, longitude, and address  . Seamless integration with OlaMaps API.",
   "main": "dist/index.js",
   "scripts": {
     "build":"npx rollup -c"
