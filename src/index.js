@@ -10,7 +10,8 @@ const convertToAddress = async (lat, lng,apiKey) => {
     }
 };
 
- const getLocation = async () => {
+ const getLocation = async (apiKey) => {
+   
     try {
         const { coords } = await new Promise((resolve, reject) => {
             if (navigator.geolocation) {
@@ -20,7 +21,7 @@ const convertToAddress = async (lat, lng,apiKey) => {
             }
         });
 
-        const address = await convertToAddress(coords.latitude, coords.longitude);
+        const address = await convertToAddress(coords.latitude, coords.longitude,apiKey);
 
         console.log(coords.latitude, coords.longitude, null, address);
 
