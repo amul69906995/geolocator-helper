@@ -1,17 +1,24 @@
-const convertToAddress = async (lat, lng,apiKey) => {
-    try{
-    const url = `https://api.olamaps.io/places/v1/reverse-geocode?latlng=${lat},${lng}&api_key=${apiKey}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results[0].formatted_address;
+const convertToAddress = async (lat, lng, apiKey) => {
+    try {
+        const url = `https://api.olamaps.io/places/v1/reverse-geocode?latlng=${lat},${lng}&api_key=${apiKey}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data)
+        if (data.status === 'ok') {
+            return data?.results[0]?.formatted_address;
+        }
+        else {
+             throw new Error(data?.message)
+        }
     }
-    catch(error){
-         return error.message;
+    catch (error) {
+        console.log(error);
+        return error.message;
     }
 };
 
- const getLocation = async (apiKey) => {
-   
+const getLocation = async (apiKey) => {
+
     try {
         const { coords } = await new Promise((resolve, reject) => {
             if (navigator.geolocation) {
@@ -21,7 +28,7 @@ const convertToAddress = async (lat, lng,apiKey) => {
             }
         });
 
-        const address = await convertToAddress(coords.latitude, coords.longitude,apiKey);
+        const address = await convertToAddress(coords.latitude, coords.longitude, apiKey);
 
         console.log(coords.latitude, coords.longitude, null, address);
 
@@ -46,20 +53,20 @@ import React, { useState, useEffect } from 'react';
 
 export const useGeolocation = (apiKey) => {
     const [location, setLocation] = useState({
-      latitude: null,
-      longitude: null,
-      address: null,
-      error: null,
+        latitude: null,
+        longitude: null,
+        address: null,
+        error: null,
     });
-  
+
     useEffect(() => {
-      const fetchLocation = async () => {
-        const locationData = await getLocation(apiKey);
-        setLocation(locationData);
-      };
-  
-      fetchLocation();
+        const fetchLocation = async () => {
+            const locationData = await getLocation(apiKey);
+            setLocation(locationData);
+        };
+
+        fetchLocation();
     }, [apiKey]);
-  
+
     return location;
-  };
+};
