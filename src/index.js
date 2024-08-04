@@ -3,7 +3,7 @@ const convertToAddress = async (lat, lng, apiKey) => {
         const url = `https://api.olamaps.io/places/v1/reverse-geocode?latlng=${lat},${lng}&api_key=${apiKey}`;
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data)
+       // console.log(data)
         if (data.status === 'ok') {
             return data?.results[0]?.formatted_address;
         }
@@ -12,13 +12,12 @@ const convertToAddress = async (lat, lng, apiKey) => {
         }
     }
     catch (error) {
-        console.log(error);
+       // console.log(error);
         throw new Error(error.message)
     }
 };
-
 const getLocation = async (apiKey) => {
-    let address, latitude, longitude, error
+    let address, latitude, longitude, error;
     try {
         const { coords } = await new Promise((resolve, reject) => {
             if (navigator.geolocation) {
@@ -27,27 +26,30 @@ const getLocation = async (apiKey) => {
                 reject(new Error("Geolocation is not supported by your browser. Allow access to location."));
             }
         });
-
-        address = await convertToAddress(coords.latitude, coords.longitude, apiKey);
-
-        console.log(coords.latitude, coords.longitude, null, address);
         latitude = coords.latitude;
         longitude = coords.longitude;
-        error = null;
+        address = await convertToAddress(coords.latitude, coords.longitude, apiKey);
 
-    } catch (error) {
-        console.error(`Error: ${error.message}`);
-        address = null;
-        error = error.message || "Failed to get location.";
+       // console.log(coords.latitude, coords.longitude, null, address);
+
+        //console.log("inside try", latitude, longitude, address, error);
+
+    } catch (err) {
+       // console.log("inside catch errrrr|||||", err);
+        error = err.message || "Failed to get location.";
+        address = null
+       // console.log("inside catch", latitude, longitude, address, error);
 
     } finally {
+        //console.log("inside finally", latitude, longitude, address, error);
         return {
             latitude, longitude, address, error
         }
     }
 };
 
-import React, { useState, useEffect } from 'react';
+
+import { useState, useEffect } from 'react';
 
 export const useGeolocation = (apiKey) => {
     const [location, setLocation] = useState({
