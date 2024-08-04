@@ -13,7 +13,7 @@ const convertToAddress = async (lat, lng, apiKey) => {
     }
     catch (error) {
         console.log(error);
-        return error.message;
+        throw new Error(error.message)
     }
 };
 
