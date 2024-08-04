@@ -8,7 +8,7 @@ const convertToAddress = async (lat, lng, apiKey) => {
             return data?.results[0]?.formatted_address;
         }
         else {
-             throw new Error(data?.message)
+            throw new Error(data?.message)
         }
     }
     catch (error) {
@@ -18,7 +18,7 @@ const convertToAddress = async (lat, lng, apiKey) => {
 };
 
 const getLocation = async (apiKey) => {
-
+    let address, latitude, longitude, error
     try {
         const { coords } = await new Promise((resolve, reject) => {
             if (navigator.geolocation) {
@@ -28,24 +28,22 @@ const getLocation = async (apiKey) => {
             }
         });
 
-        const address = await convertToAddress(coords.latitude, coords.longitude, apiKey);
+        address = await convertToAddress(coords.latitude, coords.longitude, apiKey);
 
         console.log(coords.latitude, coords.longitude, null, address);
+        latitude = coords.latitude;
+        longitude = coords.longitude;
+        error = null;
 
-        return {
-            latitude: coords.latitude,
-            longitude: coords.longitude,
-            address,
-            error: null,
-        };
     } catch (error) {
         console.error(`Error: ${error.message}`);
+        address = null;
+        error = error.message || "Failed to get location.";
+
+    } finally {
         return {
-            latitude: null,
-            longitude: null,
-            address: null,
-            error: error.message || "Failed to get location.",
-        };
+            latitude, longitude, address, error
+        }
     }
 };
 
