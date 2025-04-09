@@ -28,8 +28,9 @@ const getLocation = async (apiKey) => {
         });
         latitude = coords.latitude;
         longitude = coords.longitude;
+        if(apiKey){
         address = await convertToAddress(coords.latitude, coords.longitude, apiKey);
-
+        }
        // console.log(coords.latitude, coords.longitude, null, address);
 
         //console.log("inside try", latitude, longitude, address, error);
