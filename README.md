@@ -1,40 +1,80 @@
 # Geolocator Helper
 
-The `geolocator-helper` library provides a simple React hook to access geolocation data and convert coordinates to an address. It integrates with the olakrutrim service for address conversion.
-### External Service(completely free)
-The useGeolocation hook relies on the olakrutrim service for address conversion. To use this service, visit:
+The `geolocator-helper` library provides simple, lightweight React hooks to:
+- Access **geolocation** data (latitude, longitude).
+- Convert coordinates to **address** using the Ola Krutrim Maps API.
+- Detect **online/offline network status** in real-time.
 
-Service URL: https://maps.olakrutrim.com/
-Make sure you have a valid API key from olakrutrim to utilize the hook effectively.
-## Installation
+## 🌍 External Service (Completely Free)
 
-To install the `geolocator-helper` library, use npm or yarn:
+The `useGeolocation` hook uses the **Ola Krutrim** service for address conversion.
+
+- 🔗 Service URL: [https://maps.olakrutrim.com/](https://maps.olakrutrim.com/)
+
+> Make sure you have a valid API key from Ola Krutrim to use the reverse geocoding feature.
+
+---
+
+## 📦 Installation
+
+Install the package using npm:
 
 ```bash
 npm install geolocator-helper
 ```
-## Usage
-Import the useGeolocation hook from the library and use it within your React component to access geolocation data:
 
-```bash
+---
+
+## 🔧 Usage
+
+### 1. `useGeolocation` Hook
+Use this hook to get the user's current latitude, longitude, and optionally address (if API key is provided):
+
+```jsx
 import { useGeolocation } from 'geolocator-helper';
 
 const MyComponent = () => {
-    const { latitude, longitude, address, error } = useGeolocation('YOUR_API_KEY_HERE');
-/*if you donot provide api key it will still give latitude and longitude for adress you will need api key*/
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+  const { latitude, longitude, address, error } = useGeolocation('YOUR_API_KEY_HERE');
 
-    return (
-        <div>
-            <p>Latitude: {latitude}</p>
-            <p>Longitude: {longitude}</p>
-            <p>Address: {address}</p>
-        </div>
-    );
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div>
+      <p>Latitude: {latitude}</p>
+      <p>Longitude: {longitude}</p>
+      <p>Address: {address}</p>
+    </div>
+  );
 };
 ```
-### Note
-The geolocator-helper library is specifically designed for use in React applications and is not suitable for backend environments like Node.js.
 
+✅ If you don’t provide an API key, the hook will still return latitude and longitude.  
+🗺️ For address conversion, pass a valid Ola Krutrim API key.
+
+---
+
+### 2. `useNetworkStatus` Hook
+Detect network status (online/offline) in real time:
+
+```jsx
+import { useNetworkStatus } from 'geolocator-helper';
+
+const NetworkStatus = () => {
+  const isOnline = useNetworkStatus();
+
+  return (
+    <div>
+      <p>Status: {isOnline ? '🟢 Online' : '🔴 Offline'}</p>
+    </div>
+  );
+};
+```
+
+This uses `navigator.onLine` and listens to browser online/offline events.
+
+---
+
+### Note
+The `geolocator-helper` library is specifically designed for use in React applications and is not suitable for backend environments like Node.js.

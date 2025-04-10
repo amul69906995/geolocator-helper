@@ -1,8 +1,8 @@
 {
   "name": "geolocator-helper",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "type": "module",
-  "description": " Lightweight geolocation library which provides latitude, longitude, and address  . Seamless integration with OlaMaps API.",
+  "description": " Lightweight geolocation library providing latitude, longitude, address conversion via OlaMaps API, and real-time network status detection.",
   "main": "dist/index.js",
   "scripts": {
     "build": "npx rollup -c"
@@ -18,7 +18,9 @@
     "reverse geocoding",
     "geocoding",
     "location",
-    "address"
+    "internet-status",
+    "network-status",
+    "online-offline"
   ],
   "author": "amul kumar",
   "license": "ISC",
